@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="093e21bea47244b7b0414d8112015fe5" Name="Diagram1">
+        <EntityTypeShape EntityType="SVSSStoresModel.svssstores_itemgroup" Width="1.5" PointX="0.75" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SVSSStoresModel.svssstores_itemmaster" Width="1.5" PointX="3" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="SVSSStoresModel.svssstores_stockdetail" Width="1.5" PointX="5.25" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SVSSStoresModel.svssstores_stockissuedetail" Width="1.5" PointX="8.25" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SVSSStoresModel.svssstores_stockissuemaster" Width="1.5" PointX="6" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SVSSStoresModel.svssstores_stockmaster" Width="1.5" PointX="3" PointY="10.125" IsExpanded="true" />
+        <AssociationConnector Association="SVSSStoresModel.FK_ItemGroup_GroupId" ManuallyRouted="false" />
+        <AssociationConnector Association="SVSSStoresModel.FK_Stock_ItemMasterId" ManuallyRouted="false" />
+        <AssociationConnector Association="SVSSStoresModel.FK_StockIssueDet_ItemMasterId" ManuallyRouted="false" />
+        <AssociationConnector Association="SVSSStoresModel.FK_StockMaster_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="SVSSStoresModel.FK_StockIssueDet_MasterId" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

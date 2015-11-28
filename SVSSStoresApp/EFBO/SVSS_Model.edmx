@@ -1,0 +1,457 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="SVSSStoresModel.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="SVSSStoresModelStoreContainer">
+          <EntitySet Name="svssstores_itemgroup" EntityType="SVSSStoresModel.Store.svssstores_itemgroup" store:Type="Tables" Schema="svssstores" />
+          <EntitySet Name="svssstores_itemmaster" EntityType="SVSSStoresModel.Store.svssstores_itemmaster" store:Type="Tables" Schema="svssstores" />
+          <EntitySet Name="svssstores_stockdetail" EntityType="SVSSStoresModel.Store.svssstores_stockdetail" store:Type="Tables" Schema="svssstores" />
+          <EntitySet Name="svssstores_stockissuedetail" EntityType="SVSSStoresModel.Store.svssstores_stockissuedetail" store:Type="Tables" Schema="svssstores" />
+          <EntitySet Name="svssstores_stockissuemaster" EntityType="SVSSStoresModel.Store.svssstores_stockissuemaster" store:Type="Tables" Schema="svssstores" />
+          <EntitySet Name="svssstores_stockmaster" EntityType="SVSSStoresModel.Store.svssstores_stockmaster" store:Type="Tables" Schema="svssstores" />
+          <AssociationSet Name="FK_ItemGroup_GroupId" Association="SVSSStoresModel.Store.FK_ItemGroup_GroupId">
+            <End Role="svssstores_itemgroup" EntitySet="svssstores_itemgroup" />
+            <End Role="svssstores_itemmaster" EntitySet="svssstores_itemmaster" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Stock_ItemMasterId" Association="SVSSStoresModel.Store.FK_Stock_ItemMasterId">
+            <End Role="svssstores_itemmaster" EntitySet="svssstores_itemmaster" />
+            <End Role="svssstores_stockdetail" EntitySet="svssstores_stockdetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StockIssueDet_ItemMasterId" Association="SVSSStoresModel.Store.FK_StockIssueDet_ItemMasterId">
+            <End Role="svssstores_itemmaster" EntitySet="svssstores_itemmaster" />
+            <End Role="svssstores_stockissuedetail" EntitySet="svssstores_stockissuedetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StockIssueDet_MasterId" Association="SVSSStoresModel.Store.FK_StockIssueDet_MasterId">
+            <End Role="svssstores_stockissuemaster" EntitySet="svssstores_stockissuemaster" />
+            <End Role="svssstores_stockissuedetail" EntitySet="svssstores_stockissuedetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StockMaster_Id" Association="SVSSStoresModel.Store.FK_StockMaster_Id">
+            <End Role="svssstores_stockmaster" EntitySet="svssstores_stockmaster" />
+            <End Role="svssstores_stockdetail" EntitySet="svssstores_stockdetail" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="svssstores_itemgroup">
+          <Key>
+            <PropertyRef Name="itemgroup_id" />
+          </Key>
+          <Property Name="itemgroup_id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="itemgroup_groupname" Type="varchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="svssstores_itemmaster">
+          <Key>
+            <PropertyRef Name="ItemMaster_ID" />
+          </Key>
+          <Property Name="ItemMaster_ID" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ItemMaster_ItemName" Type="varchar" />
+          <Property Name="ItemMaster_UOM" Type="varchar" MaxLength="100" />
+          <Property Name="ItemMaster_IsActive" Type="bit" />
+          <Property Name="ItemMaster_UnitPrice" Type="decimal" Precision="18" Scale="6" />
+          <Property Name="ItemMaster_ItemCode" Type="varchar" MaxLength="255" />
+          <Property Name="ItemMaster_QtyOnHand" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="ItemMaster_GroupId" Type="bigint" />
+        </EntityType>
+        <EntityType Name="svssstores_stockdetail">
+          <Key>
+            <PropertyRef Name="stockdetail_id" />
+          </Key>
+          <Property Name="stockdetail_id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="stockdetail_masterid" Type="bigint" Nullable="false" />
+          <Property Name="stockdetail_itemId" Type="bigint" Nullable="false" />
+          <Property Name="stockdetail_transfertype" Type="int" />
+          <Property Name="stockdetail_remarks" Type="varchar" MaxLength="5000" />
+          <Property Name="stockdetail_purchasertype" Type="int" />
+          <Property Name="stockdetail_qty" Type="decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="stockdetail_unitprice" Type="decimal" Precision="18" Scale="6" />
+        </EntityType>
+        <EntityType Name="svssstores_stockissuedetail">
+          <Key>
+            <PropertyRef Name="stockissuedetail_Id" />
+          </Key>
+          <Property Name="stockissuedetail_Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="stockissuedetail_masterid" Type="bigint" Nullable="false" />
+          <Property Name="stockissuedetail_itemid" Type="bigint" Nullable="false" />
+          <Property Name="stockissuedetail_transfertype" Type="int" />
+          <Property Name="stockissuedetail_issuetype" Type="int" />
+          <Property Name="stockissuedetail_remarks" Type="varchar" MaxLength="5000" />
+          <Property Name="stockissuedetail_Qty" Type="decimal" Nullable="false" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="svssstores_stockissuemaster">
+          <Key>
+            <PropertyRef Name="stockissuemaster_Id" />
+          </Key>
+          <Property Name="stockissuemaster_Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="stockissuemaster_number" Type="varchar" MaxLength="45" />
+          <Property Name="stockissuemaster_issuedate" Type="datetime" />
+          <Property Name="stockissuemaster_particualrs" Type="varchar" MaxLength="5000" />
+          <Property Name="stockissuemaster_issuedto" Type="varchar" MaxLength="5000" />
+          <Property Name="stockissuemaster_transfertype" Type="int" />
+          <Property Name="stockissuemaster_issuetype" Type="int" />
+        </EntityType>
+        <EntityType Name="svssstores_stockmaster">
+          <Key>
+            <PropertyRef Name="stockmaster_id" />
+          </Key>
+          <Property Name="stockmaster_id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="stockmaster_number" Type="varchar" MaxLength="45" />
+          <Property Name="stockmaster_date" Type="datetime" />
+          <Property Name="stockmaster_orderno" Type="varchar" />
+          <Property Name="stockmaster_orderdate" Type="datetime" />
+          <Property Name="stockmaster_billno" Type="varchar" />
+          <Property Name="stockmaster_billdate" Type="datetime" />
+          <Property Name="stockmaster_supplier" Type="varchar" />
+          <Property Name="stockmaster_suppliedOn" Type="datetime" />
+          <Property Name="stockmaster_additiontype" Type="int" />
+          <Property Name="stockmaster_transfertype" Type="int" />
+          <Property Name="stockmaster_particulars" Type="varchar" MaxLength="5000" />
+          <Property Name="stockmaster_remarks" Type="varchar" MaxLength="5000" />
+        </EntityType>
+        <Association Name="FK_ItemGroup_GroupId">
+          <End Role="svssstores_itemgroup" Type="SVSSStoresModel.Store.svssstores_itemgroup" Multiplicity="0..1" />
+          <End Role="svssstores_itemmaster" Type="SVSSStoresModel.Store.svssstores_itemmaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="svssstores_itemgroup">
+              <PropertyRef Name="itemgroup_id" />
+            </Principal>
+            <Dependent Role="svssstores_itemmaster">
+              <PropertyRef Name="ItemMaster_GroupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Stock_ItemMasterId">
+          <End Role="svssstores_itemmaster" Type="SVSSStoresModel.Store.svssstores_itemmaster" Multiplicity="1" />
+          <End Role="svssstores_stockdetail" Type="SVSSStoresModel.Store.svssstores_stockdetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="svssstores_itemmaster">
+              <PropertyRef Name="ItemMaster_ID" />
+            </Principal>
+            <Dependent Role="svssstores_stockdetail">
+              <PropertyRef Name="stockdetail_itemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StockIssueDet_ItemMasterId">
+          <End Role="svssstores_itemmaster" Type="SVSSStoresModel.Store.svssstores_itemmaster" Multiplicity="1" />
+          <End Role="svssstores_stockissuedetail" Type="SVSSStoresModel.Store.svssstores_stockissuedetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="svssstores_itemmaster">
+              <PropertyRef Name="ItemMaster_ID" />
+            </Principal>
+            <Dependent Role="svssstores_stockissuedetail">
+              <PropertyRef Name="stockissuedetail_itemid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StockIssueDet_MasterId">
+          <End Role="svssstores_stockissuemaster" Type="SVSSStoresModel.Store.svssstores_stockissuemaster" Multiplicity="1" />
+          <End Role="svssstores_stockissuedetail" Type="SVSSStoresModel.Store.svssstores_stockissuedetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="svssstores_stockissuemaster">
+              <PropertyRef Name="stockissuemaster_Id" />
+            </Principal>
+            <Dependent Role="svssstores_stockissuedetail">
+              <PropertyRef Name="stockissuedetail_masterid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StockMaster_Id">
+          <End Role="svssstores_stockmaster" Type="SVSSStoresModel.Store.svssstores_stockmaster" Multiplicity="1" />
+          <End Role="svssstores_stockdetail" Type="SVSSStoresModel.Store.svssstores_stockdetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="svssstores_stockmaster">
+              <PropertyRef Name="stockmaster_id" />
+            </Principal>
+            <Dependent Role="svssstores_stockdetail">
+              <PropertyRef Name="stockdetail_masterid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SVSSStoresModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="SVSSStoresEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="svssstores_itemgroup" EntityType="SVSSStoresModel.svssstores_itemgroup" />
+          <EntitySet Name="svssstores_itemmaster" EntityType="SVSSStoresModel.svssstores_itemmaster" />
+          <EntitySet Name="svssstores_stockdetail" EntityType="SVSSStoresModel.svssstores_stockdetail" />
+          <EntitySet Name="svssstores_stockissuedetail" EntityType="SVSSStoresModel.svssstores_stockissuedetail" />
+          <EntitySet Name="svssstores_stockissuemaster" EntityType="SVSSStoresModel.svssstores_stockissuemaster" />
+          <EntitySet Name="svssstores_stockmaster" EntityType="SVSSStoresModel.svssstores_stockmaster" />
+          <AssociationSet Name="FK_ItemGroup_GroupId" Association="SVSSStoresModel.FK_ItemGroup_GroupId">
+            <End Role="svssstores_itemgroup" EntitySet="svssstores_itemgroup" />
+            <End Role="svssstores_itemmaster" EntitySet="svssstores_itemmaster" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Stock_ItemMasterId" Association="SVSSStoresModel.FK_Stock_ItemMasterId">
+            <End Role="svssstores_itemmaster" EntitySet="svssstores_itemmaster" />
+            <End Role="svssstores_stockdetail" EntitySet="svssstores_stockdetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StockIssueDet_ItemMasterId" Association="SVSSStoresModel.FK_StockIssueDet_ItemMasterId">
+            <End Role="svssstores_itemmaster" EntitySet="svssstores_itemmaster" />
+            <End Role="svssstores_stockissuedetail" EntitySet="svssstores_stockissuedetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StockMaster_Id" Association="SVSSStoresModel.FK_StockMaster_Id">
+            <End Role="svssstores_stockmaster" EntitySet="svssstores_stockmaster" />
+            <End Role="svssstores_stockdetail" EntitySet="svssstores_stockdetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StockIssueDet_MasterId" Association="SVSSStoresModel.FK_StockIssueDet_MasterId">
+            <End Role="svssstores_stockissuemaster" EntitySet="svssstores_stockissuemaster" />
+            <End Role="svssstores_stockissuedetail" EntitySet="svssstores_stockissuedetail" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="svssstores_itemgroup">
+          <Key>
+            <PropertyRef Name="itemgroup_id" />
+          </Key>
+          <Property Name="itemgroup_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="itemgroup_groupname" Type="String" MaxLength="500" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="svssstores_itemmaster" Relationship="SVSSStoresModel.FK_ItemGroup_GroupId" FromRole="svssstores_itemgroup" ToRole="svssstores_itemmaster" />
+        </EntityType>
+        <EntityType Name="svssstores_itemmaster">
+          <Key>
+            <PropertyRef Name="ItemMaster_ID" />
+          </Key>
+          <Property Name="ItemMaster_ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ItemMaster_ItemName" Type="String" MaxLength="1000" Unicode="false" FixedLength="false" />
+          <Property Name="ItemMaster_UOM" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="ItemMaster_IsActive" Type="Boolean" />
+          <Property Name="ItemMaster_UnitPrice" Type="Decimal" Precision="18" Scale="6" />
+          <Property Name="ItemMaster_ItemCode" Type="String" MaxLength="255" Unicode="false" FixedLength="false" />
+          <Property Name="ItemMaster_QtyOnHand" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="ItemMaster_GroupId" Type="Int64" />
+          <NavigationProperty Name="svssstores_itemgroup" Relationship="SVSSStoresModel.FK_ItemGroup_GroupId" FromRole="svssstores_itemmaster" ToRole="svssstores_itemgroup" />
+          <NavigationProperty Name="svssstores_stockdetail" Relationship="SVSSStoresModel.FK_Stock_ItemMasterId" FromRole="svssstores_itemmaster" ToRole="svssstores_stockdetail" />
+          <NavigationProperty Name="svssstores_stockissuedetail" Relationship="SVSSStoresModel.FK_StockIssueDet_ItemMasterId" FromRole="svssstores_itemmaster" ToRole="svssstores_stockissuedetail" />
+        </EntityType>
+        <EntityType Name="svssstores_stockdetail">
+          <Key>
+            <PropertyRef Name="stockdetail_id" />
+          </Key>
+          <Property Name="stockdetail_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="stockdetail_masterid" Type="Int64" Nullable="false" />
+          <Property Name="stockdetail_itemId" Type="Int64" Nullable="false" />
+          <Property Name="stockdetail_transfertype" Type="Int32" />
+          <Property Name="stockdetail_remarks" Type="String" MaxLength="5000" Unicode="false" FixedLength="false" />
+          <Property Name="stockdetail_purchasertype" Type="Int32" />
+          <Property Name="stockdetail_qty" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="stockdetail_unitprice" Type="Decimal" Precision="18" Scale="6" />
+          <NavigationProperty Name="svssstores_itemmaster" Relationship="SVSSStoresModel.FK_Stock_ItemMasterId" FromRole="svssstores_stockdetail" ToRole="svssstores_itemmaster" />
+          <NavigationProperty Name="svssstores_stockmaster" Relationship="SVSSStoresModel.FK_StockMaster_Id" FromRole="svssstores_stockdetail" ToRole="svssstores_stockmaster" />
+        </EntityType>
+        <EntityType Name="svssstores_stockissuedetail">
+          <Key>
+            <PropertyRef Name="stockissuedetail_Id" />
+          </Key>
+          <Property Name="stockissuedetail_Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="stockissuedetail_masterid" Type="Int64" Nullable="false" />
+          <Property Name="stockissuedetail_itemid" Type="Int64" Nullable="false" />
+          <Property Name="stockissuedetail_transfertype" Type="Int32" />
+          <Property Name="stockissuedetail_issuetype" Type="Int32" />
+          <Property Name="stockissuedetail_remarks" Type="String" MaxLength="5000" Unicode="false" FixedLength="false" />
+          <Property Name="stockissuedetail_Qty" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <NavigationProperty Name="svssstores_itemmaster" Relationship="SVSSStoresModel.FK_StockIssueDet_ItemMasterId" FromRole="svssstores_stockissuedetail" ToRole="svssstores_itemmaster" />
+          <NavigationProperty Name="svssstores_stockissuemaster" Relationship="SVSSStoresModel.FK_StockIssueDet_MasterId" FromRole="svssstores_stockissuedetail" ToRole="svssstores_stockissuemaster" />
+        </EntityType>
+        <EntityType Name="svssstores_stockissuemaster">
+          <Key>
+            <PropertyRef Name="stockissuemaster_Id" />
+          </Key>
+          <Property Name="stockissuemaster_Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="stockissuemaster_issuedate" Type="DateTime" Precision="0" />
+          <Property Name="stockissuemaster_particualrs" Type="String" MaxLength="5000" Unicode="false" FixedLength="false" />
+          <Property Name="stockissuemaster_issuedto" Type="String" MaxLength="5000" Unicode="false" FixedLength="false" />
+          <Property Name="stockissuemaster_transfertype" Type="Int32" />
+          <Property Name="stockissuemaster_issuetype" Type="Int32" />
+          <NavigationProperty Name="svssstores_stockissuedetail" Relationship="SVSSStoresModel.FK_StockIssueDet_MasterId" FromRole="svssstores_stockissuemaster" ToRole="svssstores_stockissuedetail" />
+          <Property Type="String" Name="stockissuemaster_number" MaxLength="45" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="svssstores_stockmaster">
+          <Key>
+            <PropertyRef Name="stockmaster_id" />
+          </Key>
+          <Property Name="stockmaster_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="stockmaster_date" Type="DateTime" Precision="0" />
+          <Property Name="stockmaster_orderno" Type="String" MaxLength="1000" Unicode="false" FixedLength="false" />
+          <Property Name="stockmaster_orderdate" Type="DateTime" Precision="0" />
+          <Property Name="stockmaster_billno" Type="String" MaxLength="1000" Unicode="false" FixedLength="false" />
+          <Property Name="stockmaster_billdate" Type="DateTime" Precision="0" />
+          <Property Name="stockmaster_supplier" Type="String" MaxLength="1000" Unicode="false" FixedLength="false" />
+          <Property Name="stockmaster_suppliedOn" Type="DateTime" Precision="0" />
+          <Property Name="stockmaster_additiontype" Type="Int32" />
+          <Property Name="stockmaster_transfertype" Type="Int32" />
+          <Property Name="stockmaster_particulars" Type="String" MaxLength="5000" Unicode="false" FixedLength="false" />
+          <Property Name="stockmaster_remarks" Type="String" MaxLength="5000" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="svssstores_stockdetail" Relationship="SVSSStoresModel.FK_StockMaster_Id" FromRole="svssstores_stockmaster" ToRole="svssstores_stockdetail" />
+          <Property Type="String" Name="stockmaster_number" MaxLength="45" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK_ItemGroup_GroupId">
+          <End Role="svssstores_itemgroup" Type="SVSSStoresModel.svssstores_itemgroup" Multiplicity="0..1" />
+          <End Role="svssstores_itemmaster" Type="SVSSStoresModel.svssstores_itemmaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="svssstores_itemgroup">
+              <PropertyRef Name="itemgroup_id" />
+            </Principal>
+            <Dependent Role="svssstores_itemmaster">
+              <PropertyRef Name="ItemMaster_GroupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Stock_ItemMasterId">
+          <End Role="svssstores_itemmaster" Type="SVSSStoresModel.svssstores_itemmaster" Multiplicity="1" />
+          <End Role="svssstores_stockdetail" Type="SVSSStoresModel.svssstores_stockdetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="svssstores_itemmaster">
+              <PropertyRef Name="ItemMaster_ID" />
+            </Principal>
+            <Dependent Role="svssstores_stockdetail">
+              <PropertyRef Name="stockdetail_itemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StockIssueDet_ItemMasterId">
+          <End Role="svssstores_itemmaster" Type="SVSSStoresModel.svssstores_itemmaster" Multiplicity="1" />
+          <End Role="svssstores_stockissuedetail" Type="SVSSStoresModel.svssstores_stockissuedetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="svssstores_itemmaster">
+              <PropertyRef Name="ItemMaster_ID" />
+            </Principal>
+            <Dependent Role="svssstores_stockissuedetail">
+              <PropertyRef Name="stockissuedetail_itemid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StockMaster_Id">
+          <End Role="svssstores_stockmaster" Type="SVSSStoresModel.svssstores_stockmaster" Multiplicity="1" />
+          <End Role="svssstores_stockdetail" Type="SVSSStoresModel.svssstores_stockdetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="svssstores_stockmaster">
+              <PropertyRef Name="stockmaster_id" />
+            </Principal>
+            <Dependent Role="svssstores_stockdetail">
+              <PropertyRef Name="stockdetail_masterid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StockIssueDet_MasterId">
+          <End Role="svssstores_stockissuemaster" Type="SVSSStoresModel.svssstores_stockissuemaster" Multiplicity="1" />
+          <End Role="svssstores_stockissuedetail" Type="SVSSStoresModel.svssstores_stockissuedetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="svssstores_stockissuemaster">
+              <PropertyRef Name="stockissuemaster_Id" />
+            </Principal>
+            <Dependent Role="svssstores_stockissuedetail">
+              <PropertyRef Name="stockissuedetail_masterid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SVSSStoresModelStoreContainer" CdmEntityContainer="SVSSStoresEntities">
+          <EntitySetMapping Name="svssstores_itemgroup">
+            <EntityTypeMapping TypeName="SVSSStoresModel.svssstores_itemgroup">
+              <MappingFragment StoreEntitySet="svssstores_itemgroup">
+                <ScalarProperty Name="itemgroup_id" ColumnName="itemgroup_id" />
+                <ScalarProperty Name="itemgroup_groupname" ColumnName="itemgroup_groupname" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="svssstores_itemmaster">
+            <EntityTypeMapping TypeName="SVSSStoresModel.svssstores_itemmaster">
+              <MappingFragment StoreEntitySet="svssstores_itemmaster">
+                <ScalarProperty Name="ItemMaster_ID" ColumnName="ItemMaster_ID" />
+                <ScalarProperty Name="ItemMaster_ItemName" ColumnName="ItemMaster_ItemName" />
+                <ScalarProperty Name="ItemMaster_UOM" ColumnName="ItemMaster_UOM" />
+                <ScalarProperty Name="ItemMaster_IsActive" ColumnName="ItemMaster_IsActive" />
+                <ScalarProperty Name="ItemMaster_UnitPrice" ColumnName="ItemMaster_UnitPrice" />
+                <ScalarProperty Name="ItemMaster_ItemCode" ColumnName="ItemMaster_ItemCode" />
+                <ScalarProperty Name="ItemMaster_QtyOnHand" ColumnName="ItemMaster_QtyOnHand" />
+                <ScalarProperty Name="ItemMaster_GroupId" ColumnName="ItemMaster_GroupId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="svssstores_stockdetail">
+            <EntityTypeMapping TypeName="SVSSStoresModel.svssstores_stockdetail">
+              <MappingFragment StoreEntitySet="svssstores_stockdetail">
+                <ScalarProperty Name="stockdetail_id" ColumnName="stockdetail_id" />
+                <ScalarProperty Name="stockdetail_masterid" ColumnName="stockdetail_masterid" />
+                <ScalarProperty Name="stockdetail_itemId" ColumnName="stockdetail_itemId" />
+                <ScalarProperty Name="stockdetail_transfertype" ColumnName="stockdetail_transfertype" />
+                <ScalarProperty Name="stockdetail_remarks" ColumnName="stockdetail_remarks" />
+                <ScalarProperty Name="stockdetail_purchasertype" ColumnName="stockdetail_purchasertype" />
+                <ScalarProperty Name="stockdetail_qty" ColumnName="stockdetail_qty" />
+                <ScalarProperty Name="stockdetail_unitprice" ColumnName="stockdetail_unitprice" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="svssstores_stockissuedetail">
+            <EntityTypeMapping TypeName="SVSSStoresModel.svssstores_stockissuedetail">
+              <MappingFragment StoreEntitySet="svssstores_stockissuedetail">
+                <ScalarProperty Name="stockissuedetail_Id" ColumnName="stockissuedetail_Id" />
+                <ScalarProperty Name="stockissuedetail_masterid" ColumnName="stockissuedetail_masterid" />
+                <ScalarProperty Name="stockissuedetail_itemid" ColumnName="stockissuedetail_itemid" />
+                <ScalarProperty Name="stockissuedetail_transfertype" ColumnName="stockissuedetail_transfertype" />
+                <ScalarProperty Name="stockissuedetail_issuetype" ColumnName="stockissuedetail_issuetype" />
+                <ScalarProperty Name="stockissuedetail_remarks" ColumnName="stockissuedetail_remarks" />
+                <ScalarProperty Name="stockissuedetail_Qty" ColumnName="stockissuedetail_Qty" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="svssstores_stockissuemaster">
+            <EntityTypeMapping TypeName="SVSSStoresModel.svssstores_stockissuemaster">
+              <MappingFragment StoreEntitySet="svssstores_stockissuemaster">
+                <ScalarProperty Name="stockissuemaster_number" ColumnName="stockissuemaster_number" />
+                <ScalarProperty Name="stockissuemaster_Id" ColumnName="stockissuemaster_Id" />
+                <ScalarProperty Name="stockissuemaster_issuedate" ColumnName="stockissuemaster_issuedate" />
+                <ScalarProperty Name="stockissuemaster_particualrs" ColumnName="stockissuemaster_particualrs" />
+                <ScalarProperty Name="stockissuemaster_issuedto" ColumnName="stockissuemaster_issuedto" />
+                <ScalarProperty Name="stockissuemaster_transfertype" ColumnName="stockissuemaster_transfertype" />
+                <ScalarProperty Name="stockissuemaster_issuetype" ColumnName="stockissuemaster_issuetype" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="svssstores_stockmaster">
+            <EntityTypeMapping TypeName="SVSSStoresModel.svssstores_stockmaster">
+              <MappingFragment StoreEntitySet="svssstores_stockmaster">
+                <ScalarProperty Name="stockmaster_number" ColumnName="stockmaster_number" />
+                <ScalarProperty Name="stockmaster_id" ColumnName="stockmaster_id" />
+                <ScalarProperty Name="stockmaster_date" ColumnName="stockmaster_date" />
+                <ScalarProperty Name="stockmaster_orderno" ColumnName="stockmaster_orderno" />
+                <ScalarProperty Name="stockmaster_orderdate" ColumnName="stockmaster_orderdate" />
+                <ScalarProperty Name="stockmaster_billno" ColumnName="stockmaster_billno" />
+                <ScalarProperty Name="stockmaster_billdate" ColumnName="stockmaster_billdate" />
+                <ScalarProperty Name="stockmaster_supplier" ColumnName="stockmaster_supplier" />
+                <ScalarProperty Name="stockmaster_suppliedOn" ColumnName="stockmaster_suppliedOn" />
+                <ScalarProperty Name="stockmaster_additiontype" ColumnName="stockmaster_additiontype" />
+                <ScalarProperty Name="stockmaster_transfertype" ColumnName="stockmaster_transfertype" />
+                <ScalarProperty Name="stockmaster_particulars" ColumnName="stockmaster_particulars" />
+                <ScalarProperty Name="stockmaster_remarks" ColumnName="stockmaster_remarks" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
