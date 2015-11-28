@@ -20,6 +20,7 @@ namespace SVSSStoresApp.Model
         public int StockMasterTransferType { get; set; }
         public string StockMasterParticulars { get; set; }
         public string StockMasterRemarks { get; set; }
+        public string StockMasterNumber { get; set; }
 
         public ObservableCollection<StockDetailModel> StockDetailList { get; set; }
     }
