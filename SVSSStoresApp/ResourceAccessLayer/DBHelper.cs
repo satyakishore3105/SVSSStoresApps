@@ -10,6 +10,7 @@ namespace SVSSStoresApp.ResourceAccessLayer
     {
         private static SVSSStoresEntities dbContext = new SVSSStoresEntities();
 
+        
         public DBHelper()
         {
             if (dbContext != null)

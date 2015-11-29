@@ -25,6 +25,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="150" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <Grid Grid.Row="0" >
                 <Grid.RowDefinitions>
@@ -116,34 +117,7 @@
                         </Rectangle.OpacityMask>
                     </Rectangle>
                 </Button>
-                <!--<ListView Margin="5"  HorizontalAlignment="Center"
-                          Style="{StaticResource VirtualisedMetroListView}"
-                          BorderThickness="1"
-                          ItemsSource="{Binding Path=StockDetailList}" >
-                    <ListView.View>
-                        <GridView>
-                            <GridViewColumn  DisplayMemberBinding="{Binding StockDetailItem.ItemMasterName}"
-                                            Header="Item Name" >
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock MinWidth="200" TextWrapping="Wrap"/>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                            <GridViewColumn DisplayMemberBinding="{Binding StockDetailItem.ItemCode}"
-                                            Header="Item Code" />
-                            <GridViewColumn DisplayMemberBinding="{Binding StockDetailItem.UOM}"
-                                            Header="UOM" />
-                            <GridViewColumn DisplayMemberBinding="{Binding StockDetailQty}" 
-                                            Header="Qty" />
-                            <GridViewColumn DisplayMemberBinding="{Binding StockDetailUnitPrice}"
-                                            Header="Unit Price" />
-                            <GridViewColumn DisplayMemberBinding="{Binding StrockDetailTotalPrice}"
-                                            Header="Total Price" />
-
-                        </GridView>
-                    </ListView.View>
-                </ListView>-->
+                
                 <DataGrid x:Name="MetroDataGrid"
                   Margin="5"  HorizontalAlignment="Center"
                   RenderOptions.ClearTypeHint="Enabled"
@@ -166,7 +140,7 @@
                                                       Minimum="1" />
                         <DataGridTextColumn Binding="{Binding StockDetailUnitPrice}"
                                             Header="Unit Price" />
-                        <DataGridTextColumn Binding="{Binding StrockDetailTotalPrice}"
+                        <DataGridTextColumn Binding="{Binding StrockDetailTotalPrice, Mode=OneWay}"
                                             Header="Total Price" />
                     </DataGrid.Columns>
                     <DataGrid.Style>
@@ -178,6 +152,7 @@
                     </DataGrid.Style>
                 </DataGrid>
             </StackPanel>
+            
 
         </Grid>
         <Border>

@@ -18,6 +18,7 @@ namespace SVSSStoresApp.EFBO
         public SVSSStoresEntities()
             : base("name=SVSSStoresEntities")
         {
+            Database.SetInitializer<SVSSStoresEntities>(new CreateDatabaseIfNotExists<SVSSStoresEntities>());
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
